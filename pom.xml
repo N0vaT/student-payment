@@ -11,9 +11,11 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <hibernate.version>6.1.1.Final</hibernate.version>
+        <hibernate.version>5.4.23.Final</hibernate.version>
         <spring.version>5.3.22</spring.version>
+        <spring-data.version>2.3.9.RELEASE</spring-data.version>
         <slf4j.version>1.7.36</slf4j.version>
+        <junit.version>4.13.2</junit.version>
     </properties>
 
     <dependencies>
@@ -44,12 +46,17 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data.version}</version>
         </dependency>
 
         <dependency>
@@ -63,6 +70,12 @@
             <version>${slf4j.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
