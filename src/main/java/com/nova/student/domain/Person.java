@@ -1,10 +1,10 @@
 package com.nova.student.domain;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
-@Embeddable
+@MappedSuperclass
 public class Person {
     private String surName;
     private String givenName;

@@ -2,10 +2,7 @@ package com.nova.student.service;
 
 import com.nova.student.dao.StreetRepository;
 import com.nova.student.dao.StudentOrderRepository;
-import com.nova.student.domain.Address;
-import com.nova.student.domain.Person;
-import com.nova.student.domain.Street;
-import com.nova.student.domain.StudentOrder;
+import com.nova.student.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +37,8 @@ public class StudentOrderService {
         LOGGER.info(soList.get(0).getWife().getGivenName());
     }
 
-    public Person buildPerson(boolean wife){
-        Person p = new Person();
+    public Adult buildPerson(boolean wife){
+        Adult p = new Adult();
         p.setDateOfBirth(LocalDate.now());
         Address a = new Address();
         a.setPostCode("190000");
@@ -55,10 +52,16 @@ public class StudentOrderService {
             p.setSurName("Рюрик");
             p.setGivenName("Марфа");
             p.setPatronymic("Васильевна");
+            p.setPassportSeria("WIFE_S");
+            p.setPassportNumber("WIFE_N");
+            p.setIssueDate(LocalDate.now());
         }else{
             p.setSurName("Рюрик");
             p.setGivenName("Иван");
             p.setPatronymic("Васильевич");
+            p.setPassportSeria("HUSBAND_S");
+            p.setPassportNumber("HUSBAND_N");
+            p.setIssueDate(LocalDate.now());
         }
         return p;
     }
