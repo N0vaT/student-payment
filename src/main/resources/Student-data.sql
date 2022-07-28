@@ -10,7 +10,6 @@ INSERT INTO jc_university (university_id, university_name) VALUES
 (2,'СППУ'),
 (3,'СПМТУ');
 
-
 INSERT INTO jc_country_struct (area_id, area_name) VALUES
 ('010000000000', 'Город'),
 ('010010000000', 'Город Район 1'),
@@ -55,3 +54,6 @@ INSERT INTO jc_register_office (r_office_id, r_office_area_id, r_office_name) VA
 (5, '020010020002', 'ЗАГС Область 1 поселения 2'),
 (6, '020020010000', 'ЗАГС Область 2 район 1'),
 (7, '020020020000', 'ЗАГС Область 2 район 2');
+
+INSERT INTO jc_order_status (status_id, status_name) VALUES
+(1, 'Started'), (2, 'Completed');
