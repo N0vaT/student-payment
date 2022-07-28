@@ -1,7 +1,10 @@
 package com.nova.student.service;
 
+import com.nova.student.dao.StreetRepository;
 import com.nova.student.dao.StudentOrderRepository;
+import com.nova.student.domain.Address;
 import com.nova.student.domain.Person;
+import com.nova.student.domain.Street;
 import com.nova.student.domain.StudentOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +23,9 @@ public class StudentOrderService {
     @Autowired
     private StudentOrderRepository studentOrderRepository;
 
+    @Autowired
+    private StreetRepository streetRepository;
+
     @Transactional
     public void testSave(){
         StudentOrder so = new StudentOrder();
@@ -37,6 +43,14 @@ public class StudentOrderService {
     public Person buildPerson(boolean wife){
         Person p = new Person();
         p.setDateOfBirth(LocalDate.now());
+        Address a = new Address();
+        a.setPostCode("190000");
+        Street s = streetRepository.getOne(1L);
+        a.setStreet(s);
+        a.setBuilding("21");
+        a.setExtension("B");
+        a.setApartment("199");
+        p.setAddress(a);
         if(wife){
             p.setSurName("Рюрик");
             p.setGivenName("Марфа");
