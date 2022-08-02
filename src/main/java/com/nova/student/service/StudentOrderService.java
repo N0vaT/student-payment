@@ -54,7 +54,7 @@ public class StudentOrderService {
         List<StudentOrder> soList = studentOrderRepository.findAll();
         soList.forEach(s-> {
             if (s.getChildren().size() > 0) {
-                LOGGER.info("Дети есть, ребенка зовут - {}",s.getChildren().get(0).getGivenName());
+                LOGGER.info("Дети есть, ребенка зовут - {}",s.getChildren().get(0).getChild().getGivenName());
             } else {
                 LOGGER.info("Детей нет, жену зовут - {}",s.getWife().getGivenName());
             }
@@ -98,7 +98,9 @@ public class StudentOrderService {
     }
 
     public StudentOrderChild buildChild(StudentOrder so){
-        StudentOrderChild c = new StudentOrderChild();
+        StudentOrderChild co = new StudentOrderChild();
+        co.setStudentOrder(so);
+        Child c = new Child();
         c.setSurName("Рюрик");
         c.setGivenName("Dmitriy");
         c.setPatronymic("Ivanovich");
@@ -110,12 +112,12 @@ public class StudentOrderService {
         a.setExtension("B");
         a.setApartment("199");
         c.setAddress(a);
-        c.setStudentOrder(so);
         c.setCertificateNumber("CHILD_N");
         c.setCertificateDate(LocalDate.now());
         c.setRegisterOffice(registerOfficeRepository.getOne(1L));
 
-        return c;
+        co.setChild(c);
+        return co;
     }
 
 }
