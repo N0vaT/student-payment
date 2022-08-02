@@ -20,6 +20,8 @@ public class StudentOrderService {
     @Autowired
     private StudentOrderRepository studentOrderRepository;
     @Autowired
+    private StudentOrderChildRepository studentOrderChildRepository;
+    @Autowired
     private PassportOfficeRepository passportOfficeRepository;
     @Autowired
     private RegisterOfficeRepository registerOfficeRepository;
@@ -41,13 +43,24 @@ public class StudentOrderService {
         so.setCertificateNumber("001");
         so.setRegisterOffice(registerOfficeRepository.getOne(1L));
         so.setMarriageDate(LocalDate.now());
+
         studentOrderRepository.save(so);
+
+        studentOrderChildRepository.save(buildChild(so));
     }
 
     @Transactional
     public void testGet(){
         List<StudentOrder> soList = studentOrderRepository.findAll();
-        LOGGER.info(soList.get(0).getWife().getGivenName());
+        soList.forEach(s-> {
+            if (s.getChildren().size() > 0) {
+                LOGGER.info("Дети есть, ребенка зовут - {}",s.getChildren().get(0).getGivenName());
+            } else {
+                LOGGER.info("Детей нет, жену зовут - {}",s.getWife().getGivenName());
+            }
+        });
+//        LOGGER.info(soList.get(0).getWife().getGivenName());
+//        LOGGER.info(soList.get(0).getChildren().get(0).getGivenName());
     }
 
     public Adult buildPerson(boolean wife){
@@ -83,4 +96,26 @@ public class StudentOrderService {
         }
         return p;
     }
+
+    public StudentOrderChild buildChild(StudentOrder so){
+        StudentOrderChild c = new StudentOrderChild();
+        c.setSurName("Рюрик");
+        c.setGivenName("Dmitriy");
+        c.setPatronymic("Ivanovich");
+        c.setDateOfBirth(LocalDate.now());
+        Address a = new Address();
+        a.setPostCode("190000");
+        a.setStreet(streetRepository.getOne(1L));
+        a.setBuilding("21");
+        a.setExtension("B");
+        a.setApartment("199");
+        c.setAddress(a);
+        c.setStudentOrder(so);
+        c.setCertificateNumber("CHILD_N");
+        c.setCertificateDate(LocalDate.now());
+        c.setRegisterOffice(registerOfficeRepository.getOne(1L));
+
+        return c;
+    }
+
 }
